@@ -29,6 +29,8 @@ This is because when Django encounters the 'include' function it
 chops off whatever part of the url that matched till that point and
 sends the rest to the referenced URLconf.
 
+
+Note that we have to add the 'news/' to our url because that is the default
 """
 
 urlpatterns = [
