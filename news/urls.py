@@ -28,6 +28,7 @@ Naming the url allows us to refer to it from elsewhere in our app.
 """
 urlpatterns = [
     url(r'^$', views.welcome, name='welcome'),
+    url(r'^today/$', views.news_of_day, name='newsToday'),
 ]
 
 """

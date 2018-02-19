@@ -4,6 +4,7 @@ The HttpResponse is a class of the django.http module that is
 responsible for returning a response to the user
 """
 from django.http import HttpResponse
+import datetime as dt
 
 # Create your views here.
 
@@ -25,3 +26,20 @@ object as an argument.
 
 def welcome(request):
     return HttpResponse('Welcome to Moringa Tribune')
+
+
+"""
+We create another view to display the date for our news
+"""
+
+
+def news_of_day(request):
+    date = dt.date.today()
+    html = f'''
+            <html>
+                <body>
+                <h1>{date.day}-{date.month}-{date.year}</h1>
+                </body>
+            </html>
+            '''
+    return HttpResponse(html)
