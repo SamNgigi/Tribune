@@ -29,17 +29,42 @@ def welcome(request):
 
 
 """
-We create another view to display the date for our news
+We create another view to display the date for our news.
+We import datetime module at the top.
 """
 
 
 def news_of_day(request):
     date = dt.date.today()
+    """
+    We want to get the exact day name. We use our convert_date function
+    """
+    day = convert_dates(date)
     html = f'''
             <html>
                 <body>
-                <h1>{date.day}-{date.month}-{date.year}</h1>
+                <h1>News for {day} {date.day}-{date.month}-{date.year}</h1>
                 </body>
             </html>
             '''
     return HttpResponse(html)
+
+
+"""
+Below view function to know which day of the week it is.
+"""
+
+
+def convert_dates(dates):
+    """
+    Function that gets the week-day number for the date.
+    I think the day_number returns a number between 0 and 6
+    corresponding to the day of the week
+    """
+    day_number = dt.date.weekday(dates)
+    days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+
+    # Returning the actual day of the week
+    day = days[day_number]
+
+    return day
