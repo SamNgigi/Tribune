@@ -36,7 +36,7 @@ got this error when didn't put parenthesis around \d{4}-\d{2}-\d{2}
 """
 urlpatterns = [
     url(r'^$', views.welcome, name='welcome'),
-    url(r'^today/$', views.news_of_day, name='newsToday'),
+    url(r'^today/$', views.news_today, name='newsToday'),
     url(r'^archives/(\d{4}-\d{2}-\d{2})/$',
         views.past_days_news, name='pastNews'),
 ]

@@ -1,4 +1,4 @@
-# from django.shortcuts import render
+from django.shortcuts import render, redirect
 """
 The HttpResponse is a class of the django.http module that is
 responsible for returning a response to the user
@@ -25,7 +25,8 @@ object as an argument.
 
 
 def welcome(request):
-    return HttpResponse('Welcome to Moringa Tribune')
+    # return HttpResponse('Welcome to Moringa Tribune')
+    return render(request, 'welcome.html')
 
 
 """
@@ -34,20 +35,13 @@ We import datetime module at the top.
 """
 
 
-def news_of_day(request):
+def news_today(request):
     date = dt.date.today()
     """
     We want to get the exact day name. We use our convert_date function
     """
-    day = convert_dates(date)
-    html = f'''
-            <html>
-                <body>
-                <h1>News for {day} {date.day}-{date.month}-{date.year}</h1>
-                </body>
-            </html>
-            '''
-    return HttpResponse(html)
+
+    return render(request, 'all-news/today-news.html', {"date": date, })
 
 
 """
@@ -61,7 +55,8 @@ def convert_dates(dates):
     I think the day_number returns a number between 0 and 6
     corresponding to the day of the week
 
-    Got and IndexError (list index out of range) because i didn't have Saturday and Sunday in my days list.
+    Got and IndexError (list index out of range) because i didn't
+    have Saturday and Sunday in my days list.
     """
     day_number = dt.date.weekday(dates)
     days = ["Monday", "Tuesday", "Wednesday",
@@ -86,13 +81,9 @@ def past_days_news(request, past_date):
     except ValueError:
         # Raise 404 error when ValueError is thrown
         raise Http404()
+        assert False
 
-    day = convert_dates(date)
-    html = f'''
-            <html>
-                <body>
-                    <h1>News for {day} {date.day}-{date.month}-{date.year}</h1>
-                </body>
-            </html>
-            '''
-    return HttpResponse(html)
+    if date == dt.date.today():
+        return redirect(news_today)
+
+    return render(request, 'all-news/past-news.html', {"date": date})
