@@ -21,6 +21,8 @@ class Editor(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     email = models.EmailField()
+    # 'blank=True' this allows us to add Null values to our database
+    phone_number = models.CharField(max_length=10, blank=True)
 
     """
     We add an __str__ function that will return a string
