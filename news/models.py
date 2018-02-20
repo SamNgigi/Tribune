@@ -90,6 +90,8 @@ class Article(models.Model):
     editor = models.ForeignKey(Editor)
     tags = models.ManyToManyField(Tag)
     pub_date = models.DateTimeField(auto_now_add=True)
+    # blank=True allows  to continue with article image as null for now.
+    article_image = models.ImageField(upload_to='articles/', blank=True)
 
     # The save method
     def save_article(self):

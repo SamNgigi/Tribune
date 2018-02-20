@@ -2,6 +2,8 @@
 -We first import the url function from the django.conf.urls.
 -Then we import the views module
 """
+from django.conf import settings
+from django.conf.urls.static import static
 from django.conf.urls import url
 from . import views
 """
@@ -41,7 +43,16 @@ urlpatterns = [
     url(r'^search/',
         views.search_results, name='search_results'),
 ]
+"""
+To upload images we first import the project settings from the
+django.conf module and a static function.
 
+We then add to the urlpattern a new static route that references the
+location to the uploaded files
+"""
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
 """
 Once we define our URLconf for our news app we need to connect it
 to our project.
