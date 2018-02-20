@@ -101,6 +101,17 @@ class Article(models.Model):
 
     @classmethod
     def todays_news(cls):
+        """
+        We use the Django query filter date that allows us to convert
+        out datetimefield to a date.
+
+        Note the twwo underscores after the first date.
+        """
         today = dt.date.today()
         news = cls.objects.filter(pub_date__date=today)
+        return news
+
+    @classmethod
+    def date_news(cls, date):
+        news = cls.objects.filter(pub_date__date=date)
         return news
