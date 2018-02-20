@@ -36,6 +36,8 @@ class Editor(models.Model):
     def save_editor(self):
         self.save()
 
+    def delete_editor(self):
+        self.delete()
     """
     Changed
     ordering = ['name']
@@ -61,6 +63,9 @@ class Tags(models.Model):
     # The save method
     def save_tag(self):
         self.save()
+
+    def delete_tag(self):
+        self.delete()
 
 
 class Articles(models.Model):

@@ -24,6 +24,15 @@ class EditorTestClass(TestCase):
         editors = Editor.objects.all()
         self.assertTrue(len(editors) > 0)
 
+    def test_deleting_editors(self):
+        self.test = Editor(first_name='Test',
+                           last_name='Case', email='test@gmail.com')
+        self.test.save_editor()
+        # self.test.save_editor()
+        self.test.delete_editor()
+        editors = Editor.objects.all()
+        self.assertTrue(len(editors) < 1)
+
 
 class ArticlesTestClass(TestCase):
     # Set up method. Make sure to spell setUp correctly
@@ -88,3 +97,11 @@ class TagsTestClass(TestCase):
         self.tag_test.save_tag()
         tags = Tags.objects.all()
         self.assertTrue(len(tags) > 0)
+
+    def test_deleting_tags(self):
+        self.tag_test = Tags(name='Testing')
+        self.tag_test.save_tag()
+        # self.test.save_editor()
+        self.tag_test.delete_tag()
+        tags = Tags.objects.all()
+        self.assertTrue(len(tags) < 1)
