@@ -70,7 +70,7 @@ class TagsTestClass(TestCase):
         self.assertTrue(isinstance(self.tag_test, Tags))
 
     # Testing save method
-    def tags(self):
+    def test_save_tags(self):
         # self.test.save_editor()
         self.tag_test.save_tag()
         tags = Tags.objects.all()

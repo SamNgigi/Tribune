@@ -58,6 +58,10 @@ class Tags(models.Model):
     def __str__(self):
         return self.name
 
+    # The save method
+    def save_tag(self):
+        self.save()
+
 
 class Articles(models.Model):
     """
