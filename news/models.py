@@ -85,3 +85,7 @@ class Articles(models.Model):
     # The save method
     def save_article(self):
         self.save()
+
+    # The delete method
+    def delete_article(self):
+        self.delete()

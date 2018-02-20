@@ -48,6 +48,19 @@ class ArticlesTestClass(TestCase):
         articles = Articles.objects.all()
         self.assertTrue(len(articles) > 0)
 
+    def test_deleting_articles(self):
+        self.test = Editor(first_name='Test',
+                           last_name='Case', email='test@gmail.com')
+        self.test.save_editor()
+        self.test_article = Articles(title='Test Title',
+                                     body='This is a test body',
+                                     editor=self.test)
+        self.test_article.save_article()
+        # self.test.save_editor()
+        self.test_article.delete_article()
+        articles = Articles.objects.all()
+        self.assertTrue(len(articles) < 1)
+
 
 class TagsTestClass(TestCase):
     # Set up method. Make sure to spell setUp correctly
