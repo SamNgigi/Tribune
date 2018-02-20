@@ -47,3 +47,31 @@ class ArticlesTestClass(TestCase):
         self.test_article.save_article()
         articles = Articles.objects.all()
         self.assertTrue(len(articles) > 0)
+
+
+class TagsTestClass(TestCase):
+    # Set up method. Make sure to spell setUp correctly
+    def setUp(self):
+        self.test = Editor(first_name='Test',
+                           last_name='Case', email='test@gmail.com')
+        self.test.save_editor()
+
+        self.test_article = Articles(title='Test Title',
+                                     body='This is a test body',
+                                     editor=self.test)
+        self.test_article.save_article()
+
+        self.tag_test = Tags(name='Testing')
+
+    # Testing proper instantiation
+    def test_instance(self):
+        self.assertTrue(isinstance(self.test, Editor))
+        self.assertTrue(isinstance(self.test_article, Articles))
+        self.assertTrue(isinstance(self.tag_test, Tags))
+
+    # Testing save method
+    def tags(self):
+        # self.test.save_editor()
+        self.tag_test.save_tag()
+        tags = Tags.objects.all()
+        self.assertTrue(len(tags) > 0)
