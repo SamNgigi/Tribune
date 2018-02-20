@@ -3,7 +3,8 @@ from django.shortcuts import render, redirect
 The HttpResponse is a class of the django.http module that is
 responsible for returning a response to the user
 """
-from django.http import HttpResponse, Http404
+# from django.http import HttpResponse, Http404
+from .models import Article
 import datetime as dt
 
 # Create your views here.
@@ -40,8 +41,10 @@ def news_today(request):
     """
     We want to get the exact day name. We use our convert_date function
     """
-
-    return render(request, 'all-news/today-news.html', {"date": date, })
+    date = dt.date.today()
+    news = Article.todays_news()
+    return render(request, 'all-news/today-news.html',
+                  {"date": date, "news": news})
 
 
 """
