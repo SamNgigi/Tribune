@@ -32,6 +32,10 @@ class Editor(models.Model):
     def __str__(self):
         return self.first_name
 
+    # The save method
+    def save_editor(self):
+        self.save()
+
     """
     Changed
     ordering = ['name']

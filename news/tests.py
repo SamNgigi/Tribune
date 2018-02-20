@@ -9,7 +9,7 @@ from . models import Editor, Articles, Tags
 
 
 class EditorTestClass(TestCase):
-    # Set up method
+    # Set up method. Make sure to spell setUp correctly
     def setUp(self):
         self.test = Editor(first_name='Test',
                            last_name='Case', email='test@gmail.com')
@@ -17,3 +17,9 @@ class EditorTestClass(TestCase):
     # Testing proper instantiation
     def test_instance(self):
         self.assertTrue(isinstance(self.test, Editor))
+
+    # Testing save method
+    def test_saving(self):
+        self.test.save_editor()
+        editors = Editor.objects.all()
+        self.assertTrue(len(editors) > 0)
