@@ -77,3 +77,7 @@ class Articles(models.Model):
     editor = models.ForeignKey(Editor)
     tags = models.ManyToManyField(Tags)
     pub_date = models.DateTimeField(auto_now_add=True)
+
+    # The save method
+    def save_article(self):
+        self.save()
