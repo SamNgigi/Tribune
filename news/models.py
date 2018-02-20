@@ -115,3 +115,20 @@ class Article(models.Model):
     def date_news(cls, date):
         news = cls.objects.filter(pub_date__date=date)
         return news
+
+    @classmethod
+    def search_by_title(cls, search_term):
+        """
+        This is a method that will help us fileter all the Articles in
+        our database and return one matching a search query.
+
+        This search query is passed in as search_term the second
+        argument in our method.
+
+        We use the __icontains query filter that checks if any word in
+        the title field of our articles matches the search term.
+
+        We return the result.
+        """
+        news = cls.objects.filter(title__icontains=search_term)
+        return news

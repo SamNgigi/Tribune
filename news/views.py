@@ -42,30 +42,6 @@ def news_today(request):
 
 
 """
-Below view function to know which day of the week it is.
-"""
-
-
-def convert_dates(dates):
-    """
-    Function that gets the week-day number for the date.
-    I think the day_number returns a number between 0 and 6
-    corresponding to the day of the week
-
-    Got and IndexError (list index out of range) because i didn't
-    have Saturday and Sunday in my days list.
-    """
-    day_number = dt.date.weekday(dates)
-    days = ["Monday", "Tuesday", "Wednesday",
-            "Thursday", "Friday", "Saturday", "Sunday"]
-
-    # Returning the actual day of the week
-    day = days[day_number]
-
-    return day
-
-
-"""
 Below we define the view function to display news from a past date.
 """
 
@@ -84,3 +60,31 @@ def past_days_news(request, past_date):
         return redirect(news_today)
 
     return render(request, 'all-news/past-news.html', {"date": date})
+
+
+def search_results(request):
+    """
+    This function defines our search results view.
+
+    We first check if the article query exists in our request.GET object
+    and then check if it has a value.
+
+    We then get the search term using the get method called on the
+    request.GET object.
+
+    Next we call the search_by_title method class method we created in
+    our models and pass in the user input.
+
+    We then render a HTML template and pass in the list of articles found
+    by our method and the search_term itself
+    """
+    if 'article' in request.GET and request.GET["article"]:
+        search_term = request.GET.get("article")
+        searched_articles = Article.search_by_title(search_term)
+        message = f"{search_term}"
+
+        return render(request, 'all-news/search.html',
+                      {"message": message, "articles": searched_articles})
+    else:
+        message = "You haven't searched for any term"
+        return render(request, 'all-news/search.html', {"message": message})
