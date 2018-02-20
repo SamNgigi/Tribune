@@ -35,17 +35,43 @@ class EditorTestClass(TestCase):
 
 
 class ArticlesTestClass(TestCase):
+    """
+    Class to test the Article model.
+
+    Since the Editor and Article share One to Many relationship we save
+    the Editor instance first then equate it to the editor field in the
+    Article model.
+
+    For the many to many relationship we first save both the Tag and the
+    Article instance. This allows us to have the id property of both
+    that we can join in a db table.
+
+    We then use the add function on the ManyToManyField to add a new tag.
+    """
     # Set up method. Make sure to spell setUp correctly
+
     def setUp(self):
+        # Creating new editor and saving
         self.test = Editor(first_name='Test',
                            last_name='Case', email='test@gmail.com')
         self.test.save_editor()
 
+        # Creating a new tag and saving it.
+        self.new_tag = Tag(name='Testing')
+        self.new_tag.save()
+
         self.test_article = Article(title='Test Title',
                                     body='This is a test body',
                                     editor=self.test)
+        self.test_article.save()
+        self.test_article.tags.add(self.new_tag)
 
+    def tearDown(self):
+        Editor.objects.all().delete()
+        Tag.objects.all().delete()
+        Article.objects.all().delete()
     # Testing proper instantiation
+
     def test_instance(self):
         self.assertTrue(isinstance(self.test_article, Article))
         self.assertTrue(isinstance(self.test, Editor))
@@ -58,17 +84,17 @@ class ArticlesTestClass(TestCase):
         self.assertTrue(len(articles) > 0)
 
     def test_deleting_articles(self):
-        self.test = Editor(first_name='Test',
-                           last_name='Case', email='test@gmail.com')
-        self.test.save_editor()
-        self.test_article = Article(title='Test Title',
-                                    body='This is a test body',
-                                    editor=self.test)
+
         self.test_article.save_article()
         # self.test.save_editor()
         self.test_article.delete_article()
         articles = Article.objects.all()
-        self.assertTrue(len(articles) < 1)
+        self.assertTrue(len(articles) < 2)
+
+    # Test to get today's news
+    def test_get_news_today(self):
+        today_news = Article.todays_news()
+        self.assertTrue(len(today_news) > 0)
 
 
 class TagsTestClass(TestCase):
