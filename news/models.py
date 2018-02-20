@@ -54,7 +54,7 @@ class Editor(models.Model):
         ordering = ['first_name']
 
 
-class Tags(models.Model):
+class Tag(models.Model):
     name = models.CharField(max_length=30)
 
     def __str__(self):
@@ -68,7 +68,7 @@ class Tags(models.Model):
         self.delete()
 
 
-class Articles(models.Model):
+class Article(models.Model):
     """
     Defining the Articles class.
 
@@ -84,7 +84,7 @@ class Articles(models.Model):
     title = models.CharField(max_length=60)
     body = models.TextField()
     editor = models.ForeignKey(Editor)
-    tags = models.ManyToManyField(Tags)
+    tags = models.ManyToManyField(Tag)
     pub_date = models.DateTimeField(auto_now_add=True)
 
     # The save method
