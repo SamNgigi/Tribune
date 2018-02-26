@@ -3,9 +3,10 @@ from django.shortcuts import render, redirect
 The HttpResponse is a class of the django.http module that is
 responsible for returning a response to the user
 """
-from django.http import Http404  # HttpResponse
-from .models import Article
+from django.http import Http404, HttpResponseRedirect
+from .models import Article, NewsLetterRecipients
 from .forms import NewsLetterForm
+from .email import send_welcome_email
 import datetime as dt
 
 # Create your views here.
@@ -42,6 +43,12 @@ def news_today(request):
     if request.method == 'POST':
         form = NewsLetterForm(request.POST)
         if form.is_valid():
+            name = form.cleaned_data['your_name']
+            email = form.cleaned_data['email']
+            recipient = NewsLetterRecipients(name=name, email=email)
+            recipient.save()
+            send_welcome_email(name, email)
+            HttpResponseRedirect('news_today')
             print('valid')
     else:
         form = NewsLetterForm()
