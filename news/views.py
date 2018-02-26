@@ -5,6 +5,7 @@ responsible for returning a response to the user
 """
 from django.http import Http404  # HttpResponse
 from .models import Article
+from .forms import NewsLetterForm
 import datetime as dt
 
 # Create your views here.
@@ -37,8 +38,15 @@ def news_today(request):
     """
     date = dt.date.today()
     news = Article.todays_news()
+
+    if request.method == 'POST':
+        form = NewsLetterForm(request.POST)
+        if form.is_valid():
+            print('valid')
+    else:
+        form = NewsLetterForm()
     return render(request, 'all-news/todays-news.html',
-                  {"date": date, "news": news})
+                  {"date": date, "news": news, "form": form})
 
 
 """
