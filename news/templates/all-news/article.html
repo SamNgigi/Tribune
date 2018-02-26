@@ -2,7 +2,9 @@
 {% block content %}
   <div class="container">
     <div class="row">
-      <img src="{{article.article.url}}" class="img-fluid" alt="">
+      <div class="col-xs-12 col-sm-12 col-md-12">
+        <img src="{{article.article_image.url}}" class="img-fluid" alt="test">
+      </div>
     </div>
     <div class="row">
       <h1 class="text-center">{{article.title}}</h1>
@@ -11,7 +13,7 @@
       <p>{{article.body}}</p>
     </div>
     <div class="row">
-      <p>Posted {{article.pup_date|timesince}} by {{article.editor.first_name}}</p>
+      <p>Posted {{article.pub_date|timesince}} by {{article.editor.first_name}}</p>
     </div>
   </div>
 {% endblock %}
