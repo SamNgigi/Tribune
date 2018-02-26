@@ -17,4 +17,4 @@ def send_welcome_email(name, receiver):
 
     message = EmailMultiAlternatives(subject, text_content, sender, [receiver])
     message.attach_alternative(html_content, 'text/html')
-    message.send
+    message.send()
