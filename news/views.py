@@ -78,10 +78,7 @@ def past_days_news(request, past_date):
 
 
 def article(request, article_id):
-    try:
-        article = Article.objects.get(id=article_id)
-    except DoesNotExist:
-        raise Http404()
+    article = Article.objects.get(id=article_id)
 
     return render(request, 'all-news/article.html', {"article": article})
 
