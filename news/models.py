@@ -114,6 +114,11 @@ class Article(models.Model):
         return news
 
     @classmethod
+    def all(cls):
+        news = cls.objects.all()
+        return news
+
+    @classmethod
     def date_news(cls, date):
         news = cls.objects.filter(pub_date__date=date)
         return news
