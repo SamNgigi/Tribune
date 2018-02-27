@@ -4,58 +4,11 @@ We import the models class from the 'django.db' modules.
 A models is basically a python class that inherits from the
 'modules.Model' class
 """
+from django.contrib.auth.models import User
 from django.db import models
 import datetime as dt
 
 # Create your models here.
-
-
-class Editor(models.Model):
-    """
-    We create the Editor class that inherits from the modules.
-
-    We then create three classs variables that represent different
-    columns in our database.
-
-    We use Field objects to define what sort of data the database will store.
-    """
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
-    email = models.EmailField()
-    # 'blank=True' this allows us to add Null values to our database
-    phone_number = models.CharField(max_length=10, blank=True)
-
-    """
-    We add an __str__ function that will return a string
-    representation of our model.
-
-    This will be useful  when we watn to view our returned queries
-    """
-
-    def __str__(self):
-        return self.first_name
-
-    # The save method
-    def save_editor(self):
-        self.save()
-
-    def delete_editor(self):
-        self.delete()
-
-    """
-    Changed
-    ordering = ['name']
-    to
-    ordering = ['first_name'],
-
-    Removed below error
-        SystemCheckError: System check identified some issues:
-        ERRORS:
-        news.Editor: (models.E015) 'ordering' refers to the
-        non-existent field 'name'.
-    """
-    class Meta:
-        ordering = ['first_name']
 
 
 class Tag(models.Model):
@@ -87,7 +40,7 @@ class Article(models.Model):
     """
     title = models.CharField(max_length=60)
     body = models.TextField()
-    editor = models.ForeignKey(Editor)
+    editor = models.ForeignKey(User, on_delete=models.CASCADE)
     tags = models.ManyToManyField(Tag)
     pub_date = models.DateTimeField(auto_now_add=True)
     # blank=True allows  to continue with article image as null for now.
