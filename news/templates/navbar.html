@@ -15,18 +15,26 @@
       <li class="nav-item">
         <a class="nav-link disabled" href="#">Disabled</a>
       </li>
+    </ul>
+    <ul class="navbar-nav mr-1">
+      {% if user.is_authenticated %}
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown
+          Account
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="{% url 'newsToday' %}">Home</a>
+          <a class="dropdown-item" href="/accounts/password/change">Change Password</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
+          <a class="dropdown-item" href="/logout">Logout</a>
         </div>
       </li>
     </ul>
+    {% else %}
+      <li>
+        <a class="btn btn-outline-warning" href="/accounts/login">Login</a>
+      </li>
+    {% endif %}
     <form class="form-inline my-2 my-lg-0" role="search" action="{%url 'search_results'%}">
       <input class="form-control mr-sm-2" type="search" placeholder="Search Article" name="article" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search fa-lg"></i></button>
