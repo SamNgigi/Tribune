@@ -1,33 +1,43 @@
 {% extends 'all-news/base.html' %} {% block content %} {% load bootstrap4 %}
-<div class="container mt-3">
+<div class="container-fluid mt-3">
   <div class="row">
     <!-- Looping through the news -->
     {% for news_item in news %}
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+    </div>
     <!-- displaying News articles -->
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-      <h2 class="text-center"><a href="article/{{news_item.id}}">{{news_item.title}}</a></h2>
-      <p class="text-center">{{news_item.body}}</p>
-      <p class="text-center">{{news_item.editor}} || Tags: {% for tag in news_item.tags.all%}
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+      <h2 class=""><a href="article/{{news_item.id}}">{{news_item.title}}</a></h2>
+      <p class="text-center">{{news_item.body | safe}}</p>
+      <p class="">{{news_item.editor}} || Tags: {% for tag in news_item.tags.all%}
         <!-- Note that the tag loop is a nested loop -->
         <span class="badge badge-pill badge-primary">{{tag}}</span> {% endfor %}
       </p>
     </div>
 
     <!-- Display news Article images -->
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
       <img src="{{news_item.article_image.url}}" class="img-fluid" alt="Image">
     </div>
     {% empty %}
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
       <h2 class="text-center">There are No News Items</h2>
+    </div>
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
     </div>
     {% endfor %}
   </div>
-  <div class="container-fluid mt-3">
-    <form action="{% url 'newsToday' %}" method="post">
-      {% csrf_token %} {% bootstrap_form form layout='inline' %}
-      <input type="submit" value="Subscribe" class="btn btn-outline-primary">
-    </form>
+</div>
+<div class="container-fluid mt-3">
+  <div class="row">
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"></div>
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+      <form action="{% url 'newsToday' %}" method="post">
+        {% csrf_token %} {% bootstrap_form form layout='inline' %}
+        <input type="submit" value="Subscribe" class="btn btn-outline-primary">
+      </form>
+    </div>
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"></div>
   </div>
 </div>
 {% endblock %}

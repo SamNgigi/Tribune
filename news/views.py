@@ -39,8 +39,8 @@ def news_today(request):
     published today.
     """
     date = dt.date.today()
-    news = Article.all()
-    news_leo = Article.todays_news()
+    news_zote = Article.all()
+    news = Article.todays_news()
 
     if request.method == 'POST':
         form = NewsLetterForm(request.POST)
@@ -58,7 +58,7 @@ def news_today(request):
                   {"date": date,
                    "news": news,
                    "form": form,
-                   "news_leo": news_leo})
+                   "news_zote": news_zote})
 
 
 """
