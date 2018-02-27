@@ -13,6 +13,11 @@
       <p>{{article.body}}</p>
     </div>
     <div class="row">
+      {% autoescape %}
+        {{article.post| safe}}
+      {% eendauto %}
+    </div>
+    <div class="row">
       <p>Posted {{article.pub_date|timesince}} by {{article.editor.first_name}}</p>
     </div>
   </div>

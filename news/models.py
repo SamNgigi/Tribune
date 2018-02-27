@@ -5,6 +5,7 @@ A models is basically a python class that inherits from the
 'modules.Model' class
 """
 from django.contrib.auth.models import User
+from tinymce.models import HTMLField
 from django.db import models
 import datetime as dt
 
@@ -39,8 +40,8 @@ class Article(models.Model):
     To get the dates when an article was posted we add a timespamp to our model
     """
     title = models.CharField(max_length=60)
-    body = models.TextField()
     editor = models.ForeignKey(User, on_delete=models.CASCADE)
+    body = HTMLField(blank=True)
     tags = models.ManyToManyField(Tag)
     pub_date = models.DateTimeField(auto_now_add=True)
     # blank=True allows  to continue with article image as null for now.

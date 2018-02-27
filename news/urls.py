@@ -43,6 +43,7 @@ urlpatterns = [
         views.past_days_news, name='pastNews'),
     url(r'^search/',
         views.search_results, name='search_results'),
+    url(r'^new/article$', views.new_article, name='new-article')
 ]
 """
 To upload images we first import the project settings from the

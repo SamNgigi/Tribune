@@ -6,7 +6,7 @@ responsible for returning a response to the user
 """
 from django.http import Http404, HttpResponseRedirect
 from .models import Article, NewsLetterRecipients
-from .forms import NewsLetterForm
+from .forms import NewsLetterForm, NewsArticleForm
 from .email import send_welcome_email
 import datetime as dt
 
@@ -115,3 +115,17 @@ def search_results(request):
     else:
         message = "You haven't searched for any term"
         return render(request, 'all-news/search.html', {"message": message})
+
+
+@login_required(login_url='/accounts/login/')
+def new_article(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = NewsArticleForm(request.POST, request.FILES)
+        if form.is_valid():
+            article = form.save(commit=False)
+            article.editor = current_user
+            article.save()
+    else:
+        form = NewsArticleForm()
+    return render(request, 'new-article.html', {"form": form})
