@@ -35,5 +35,6 @@ Note that we have to add the 'news/' to our url because that is the default
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'', include('news.urls'))
+    url(r'', include('news.urls')),
+    url(r'^accounts/', include('registration.backends.simple.urls')),
 ]

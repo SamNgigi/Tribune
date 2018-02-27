@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 """
 The HttpResponse is a class of the django.http module that is
 responsible for returning a response to the user
@@ -77,6 +78,7 @@ def past_days_news(request, past_date):
     return render(request, 'all-news/past-news.html', {"date": date})
 
 
+@login_required(login_url='/accounts/login/')
 def article(request, article_id):
     article = Article.objects.get(id=article_id)
 
