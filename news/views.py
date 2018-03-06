@@ -36,6 +36,7 @@ class MerchList(APIView):
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # Merch Description
+# Working properly
 
 
 class MerchDescription(APIView):
