@@ -1,4 +1,10 @@
-{% extends 'all-news/base.html' %} {% block content %} {% load bootstrap4 %}
+{% extends 'all-news/base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+{% block scripts %} {{block.super}}
+  <script type="text/javascript" src="{%static 'js/newsletter.js'%}"></script>
+{% endblock %}
+{% block content %}
 <div class="container-fluid mt-3">
   <div class="row">
     <!-- Looping through the news -->
